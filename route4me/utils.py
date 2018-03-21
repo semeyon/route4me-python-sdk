@@ -23,6 +23,7 @@ def json2obj(data):
     :param data: JSON data
     :return: object
     """
+    data = data.decode() if isinstance(data, bytes) else data # decoding response to utf if its bytes
     return json.loads(data, object_hook=_json_object_hook)
 
 
