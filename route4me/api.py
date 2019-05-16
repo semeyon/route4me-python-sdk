@@ -7,6 +7,7 @@ try:
     from urllib import urlencode
 except ImportError:
     from urllib.parse import urlencode
+from json.decoder import JSONDecodeError
 from route4me.activity_feed import ActivityFeed
 from route4me.address import Address
 from route4me.address_book import AddressBook
@@ -163,6 +164,8 @@ class Route4Me(object):
             raise
         except ValueError:
             raise
+        except JSONDecodeError as exc:
+            raise Exception(self.response.content + " -> "+str(self.response.status_code))
         except Exception:
             raise
 
